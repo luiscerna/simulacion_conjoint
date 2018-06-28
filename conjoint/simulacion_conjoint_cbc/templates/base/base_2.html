@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block extrastatic %}
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/toolkit-light.css' %}">
+    <link rel="stylesheet" href="{% static '/css/application.css' %}">
+    <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <nav class="sidebar-nav">
+          <div class="sidebar-header">
+            <button class="nav-toggler nav-toggler-md sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-md">
+              <span class="sr-only">Toggle nav</span>
+            </button>
+            <a class="sidebar-brand img-responsive" href="#">
+              <img src="{% static '/img/logo.png' %}">
+            </a>
+          </div>
+
+          <div class="collapse nav-toggleable-md" id="nav-toggleable-md">
+            <ul class="nav nav-pills nav-stacked flex-column">
+              <li class="nav-header">SIMULACIÓN</li>
+              <li class="nav-item">
+                <a class="nav-link {% block activate-listasimulacion %}{% endblock %}" href="{% url 'simulacion:simulacion_listar' %}">Ver Simulaciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block activate-registrarsimulacion %}{% endblock %}" href="{% url 'simulacion:registrar' %}">Registrar Simulaciones</a>
+              </li>
+              <li class="nav-header">USUARIOS</li>
+              <li class="nav-item">
+                <a class="nav-link {% block activate-verusuarios %}{% endblock %}" href="{% url 'usuario:usuario_list' %}">Ver Usuarios</a>
+                <a class="nav-link {% block activate-registrarusuarios %}{% endblock %}" href="{% url 'usuario:usuario_register' %}">Registrar Usuario</a>
+                <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+              </li>
+            </ul>
+            <hr class="visible-xs mt-3">
+          </div>
+        </nav>
+
+        <div class="col-md-9 content">
+          <div class="dashhead">
+            <div class="dashhead-titles">
+              <h6 class="dashhead-subtitle">Simulación Conjoint CBC</h6>
+              <h2 class="dashhead-title">{% block titulo %}{% endblock %}</h2>
+            </div>
+          </div>
+          <hr class="mt-3">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    <script src="{% static '/js/tether.min.js' %}"></script>
+    <script src="{% static '/js/chart.js' %}"></script>
+    <script src="{% static '/js/tablesorter.min.js' %}"></script>
+    <script src="{% static '/js/toolkit.js' %}"></script>
+    <script src="{% static '/js/application.js' %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+    {% block extrajs %}
+    {% endblock%}
+  </body>
+</html>

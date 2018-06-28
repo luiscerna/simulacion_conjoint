@@ -1,0 +1,17 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Seleccionar Atributo' }}{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Seleccionar Atributo' }}{% endblock %}
+{% block content %}
+      <form method="GET" action="{% url "simulacion:registrar_detalle_perfil" idPerfil idSimulacion %}">
+        <select name="atributo" id="atributo">
+          <option  value="" selected="selected">------</option>
+          {% for atributo in lista_atributo %}
+            <option value="{{ atributo.idAtributo }}">{{ atributo.nombre }}</option>
+          {% endfor %}
+        </select>
+        <br><br>
+        <button class="btn btn-success" type="submit">Guardar</button>
+      	<a class="btn btn-primary" href="{% url 'simulacion:simulacion_mostrar' idSimulacion %}">Cancelar</a>
+      </form>
+{% endblock %}

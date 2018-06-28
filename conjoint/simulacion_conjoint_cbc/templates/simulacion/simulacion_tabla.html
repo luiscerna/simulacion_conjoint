@@ -1,0 +1,53 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Simulaciones Realizadas' }}{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Simulaciones Realizadas' }}{% endblock %}
+{% block content %}
+<div class="text-center">
+</div>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Simulacion</th>
+				<th>Encuesta</th>
+				<th>Producto</th>
+				<th>Pregunta</th>
+				<th>Perfiles</th>
+				<th>Elecciones</th>
+				<!--<th>Imagen</th>-->
+			</tr>
+
+		</thead>
+		<tbody>
+{% if lista_simulacion %}
+		{% for simulacion in lista_simulacion %}
+		<tr>
+			<td>{{ simulacion.nombre }}</td>
+			<td>{{ simulacion.nombreEncuesta }}</td>
+			<td>{{ simulacion.producto }}</td>
+			<td>{{ simulacion.preguntaEncuesta }}</td>
+
+			<td>
+			{% for perfil in lista_perfil.all %}
+                <div>{{ perfil.nombre }}</div>
+			{% endfor %}
+			</td>
+			<td>
+			{% for perfil in lista_perfil.all %}
+                <div>{{ perfil.voto }}</div>
+			{% endfor %}
+			</td>
+			<!--'''<td>
+			{% for perfil in lista_perfil.all %}
+               <div> <img src="{{ perfil.media.url }}" class="img-responsive" width="50"></div>
+			{% endfor %}
+			</td>'''-->
+		</tr>
+			{% endfor %}
+{% else %}
+	<h1>No hay simulaciones Registradas</h1>
+{% endif %}
+	</tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Eliminar Perfil' }}{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Eliminar Perfil' }}{% endblock %}
+{% block content %}
+    <form method="post">
+    	{% csrf_token %}
+    	<h3>¿Desea eliminar el perfil {{ object.nombre }}?</h3>
+    	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+      <a class="btn btn-primary" href="{% url 'simulacion:simulacion_mostrar' object.idSimulacion %}">Cancelar</a>
+    </form>
+{% endblock %}

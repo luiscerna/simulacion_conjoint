@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% block title %}{{ 'Simulacion Conjoint' }}{% endblock %}
+{% block activate-inicio %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Bienvenido - Realicé Encuestas' }}{% endblock %}
+{% block content %}
+    {% if lista_simulacion %}
+    <div class="dashhead-titles">
+      <h6 class="dashhead-subtitle">Click en el nombre de la encuesta para responder.</h6>
+    </div>
+    <br><br>
+    <div class="list-group mb-3">
+      <h6 class="list-group-header">
+        Encuestas Disponibles
+      </h6>
+      {% for simulacion in lista_simulacion %}
+
+            <a class="list-group-item list-group-item-action justify-content-between" href="{% url 'simulacion:encuesta' simulacion.idSimulacion %}">
+              <span>{{ simulacion.nombreEncuesta }}</span>
+            </a>
+      {% endfor %}
+      </div>
+    {% else %}
+      <div class="dashhead-titles">
+        <h6 class="dashhead-subtitle">No hay encuestas que responder, regrese pronto.</h6>
+      </div>
+    {% endif %}
+
+{% endblock %}

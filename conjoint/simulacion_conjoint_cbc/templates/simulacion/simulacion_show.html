@@ -1,0 +1,143 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Simulación' }}{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Simulación' }}{% endblock %}
+{% block content %}
+      {% for lista in lista_simulacion %}
+        <table class="table">
+          <tbody>
+            <tr>
+              <th><strong>Nombre:</strong></th>
+              <td>{{ lista.nombre }}</td>
+              <td><strong>Estado:</strong></td>
+              <td>{{ lista.idSimulacionEstado }}</td>
+            </tr>
+            <tr>
+              <th><strong>Producto:</strong></th>
+              <td>{{ lista.producto }}</td>
+              <td><strong>Nombre de Encuesta:</strong></td>
+              <td>{{ lista.nombreEncuesta }}</td>
+            </tr>
+            <tr>
+              <th><strong>Pregunta de Encuesta:</strong></th>
+              <td>{{ lista.preguntaEncuesta }}</td>
+              <td><strong>Link de la Encuesta:</strong></td>
+              <td>
+                <button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'simulacion:encuesta' lista.idSimulacion %}'">
+                  <span class="icon icon-eye">&nbsp;Ver</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-primary" onclick="location.href='{% url 'simulacion:simulacion_editar' lista.idSimulacion %}'">
+          <span class="icon icon-pencil">&nbsp;Editar Simulación</span>
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:simulacion_eliminar' lista.idSimulacion %}'">
+          <span class="icon icon-erase">&nbsp;Eliminar Simulación</span>
+        </button>
+        <br>
+        <br>
+        <h2>Atributos</h2>
+        <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'simulacion:registrar_atributo' lista.idSimulacion %}'">
+          <span class="icon icon-add-to-list">&nbsp;Agregar Atributo</span>
+        </button>
+        <br><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Atributo</th>
+              <th scope="col">Niveles</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for atributo in lista_atributo %}
+              <tr>
+                <td>{{ atributo.nombre }}</td>
+                <td>
+                  {% for nivel in atributo.nivel.all %}
+                    <div class="row">
+                      <div class="col-sm-3">
+                        {{ nivel.nombre }}
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="button" class="btn btn-outline-primary" onclick="location.href='{% url 'simulacion:editar_nivel' pk=nivel.idNivel pk_1=atributo.idSimulacion %}'">
+                          <span class="icon icon-pencil"></span>
+                        </button>
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:eliminar_nivel' pk=nivel.idNivel pk_1=atributo.idSimulacion %}'">
+                          <span class="icon icon-erase">&nbsp;</span>
+                        </button>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'simulacion:registrar_nivel' pk=atributo.idAtributo pk_1=atributo.idSimulacion %}'">
+                    <span class="icon icon-add-to-list">&nbsp;Agregar Nivel</span>
+                  </button>
+                  <br><br>
+                  <button type="button" class="btn btn-outline-primary" onclick="location.href='{% url 'simulacion:editar_atributo' pk=atributo.idAtributo pk_1=atributo.idSimulacion %}'">
+                    <span class="icon icon-pencil">&nbsp;Editar Atributo</span>
+                  </button>
+                  <br><br>
+                  <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:eliminar_atributo' pk=atributo.idAtributo pk_1=atributo.idSimulacion %}'">
+                    <span class="icon icon-erase">&nbsp;Eliminar Atributo</span>
+                  </button>
+                </td>
+              </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+        <h2>Perfiles</h2>
+        <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'simulacion:registrar_perfil' lista.idSimulacion %}'">
+          <span class="icon icon-add-to-list">&nbsp;Agregar Perfil</span>
+        </button>
+        <br><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Perfil</th>
+              <th scope="col">Conjunción</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for perfil in lista.perfil.all %}
+              <tr>
+                <td>{{ perfil.nombre }}</td>
+                <td>
+                  {% for nivel in perfil.detalleperfil.all %}
+                    <div class="row">
+                      <div class="col-sm-4">
+                        {{ nivel.idNivel }}
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:eliminar_detalle_perfil' pk=nivel.idDetallePerfil pk_1=perfil.idSimulacion %}'">
+                          <span class="icon icon-erase"></span>
+                        </button>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'simulacion:seleccionar_atributo' pk=perfil.idPerfil pk_1=perfil.idSimulacion %}'">
+                    <span class="icon icon-add-to-list">&nbsp;Relacionar Nivel</span>
+                  </button>
+                  <br><br>
+                  <button type="button" class="btn btn-outline-primary" onclick="location.href='{% url 'simulacion:editar_perfil' pk=perfil.idPerfil pk_1=perfil.idSimulacion %}'">
+                    <span class="icon icon-pencil">&nbsp;Editar Perfil</span>
+                  </button>
+                  <br><br>
+                  <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:eliminar_perfil' pk=perfil.idPerfil pk_1=perfil.idSimulacion %}'">
+                    <span class="icon icon-erase">&nbsp;Eliminar Perfil</span>
+                  </button>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+{% endblock %}

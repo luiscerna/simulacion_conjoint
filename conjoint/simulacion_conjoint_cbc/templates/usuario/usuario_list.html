@@ -1,0 +1,60 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Lista de Usuarios' }}{% endblock %}
+{% block activate-verusuarios %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Lista de Usuarios' }}{% endblock %}
+{% block content %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Nombre</td>
+				<td>Apellido</td>
+				<td>Correo</td>
+				<td>Nombre de usuario</td>
+				<td>Fecha de registro</td>
+				<td>Adcciones</td>
+			</tr>
+		</thead>
+		<tbody>
+
+		{% if object_list %}
+
+		{% for usuario in object_list %}
+		<tr>
+			<td>{{ usuario.id }}</td>
+			<td>{{ usuario.first_name }}</td>
+			<td>{{ usuario.last_name }}</td>
+			<td>{{ usuario.email }}</td>
+			<td>{{ usuario.username }}</td>
+			<td>{{ usuario.date_joined }}</td>
+			<td>
+				<button type="button" class="btn btn-outline-primary" onclick="location.href='{% url 'usuario:usuario_edit' usuario.id %}'">
+          <span class="icon icon-pencil"></span>
+        </button>
+				<button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'usuario:usuario_delete' usuario.id %}'">
+          <span class="icon icon-erase"></span>
+        </button>
+			</td>
+		</tr>
+			{% endfor %}
+
+			{% else %}
+			<h1>No hay registro de usuaios</h1>
+
+{% endif %}
+
+	</tbody>
+</table>
+<ul class="pagination justify-content-center">
+	<li class="page-item">
+		{% if page_obj.has_previous %}
+		<a class="page-link" href="?page={{ page_obj.previous_page_number }}" >Previous</a>
+		{% endif %}
+	</li>
+	<li class="page-item">
+		{% if page_obj.has_next %}
+		<a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+		{% endif %}
+	</li>
+</ul>
+{% endblock %}

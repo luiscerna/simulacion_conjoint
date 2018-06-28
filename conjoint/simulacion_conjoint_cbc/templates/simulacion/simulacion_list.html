@@ -1,0 +1,40 @@
+{% extends 'base/base_2.html' %}
+{% block title %}{{ 'Simulaciones' }}{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Simulaciones Registradas' }}{% endblock %}
+{% block content %}
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Estado</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if object_list %}
+				{% for simulacion in object_list %}
+					<tr>
+						<td>{{ simulacion.nombre }}</td>
+						<td>{{ simulacion.idSimulacionEstado }}</td>
+						<td>
+							<button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'simulacion:simulacion_mostrar' simulacion.idSimulacion %}'">
+								<span class="icon icon-eye">&nbsp;Detalle</span>
+							</button>
+							<button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'chart:home' simulacion.idSimulacion %}'">
+								<span class="icon icon-eye">&nbsp;Grafica</span>
+							</button>
+							<button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'simulacion:resultado' simulacion.idSimulacion %}'">
+								<span class="icon icon-eye">&nbsp;Tabla</span>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+
+			{% else %}
+				<h1>No hay registros de simulacion</h1>
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

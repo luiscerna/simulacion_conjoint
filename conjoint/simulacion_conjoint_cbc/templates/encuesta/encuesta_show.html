@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% block title %}{{ 'Simulacion Conjoint' }}{% endblock %}
+{% block activate-inicio %}{{ 'active' }}{% endblock %}
+{% block content %}
+    <div class="container">
+      {% for lista in lista_simulacion %}
+      <form action="{% url 'simulacion:encuesta' lista.idSimulacion %}" method="POST">
+      {% csrf_token %}
+        <h2>Nombre encuesta: {{ lista.nombreEncuesta }}</h2>
+        <hr>
+        <h4>Pregunta: {{ lista.preguntaEncuesta }}</h4>
+        <hr>
+        <div class="row">
+          {% for perfil in lista.perfil.all %}
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Opcion</h5>
+                {% for nivel in perfil.detalleperfil.all %}
+                  <p class="card-text">{{ nivel.idNivel.idAtributo }}: {{ nivel.idNivel }}</p>
+                {% endfor %}
+                <div class="text-center">
+                    <img src="{{ perfil.media.url }}" class="img-responsive" width="100">
+                </div>
+                <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{perfil.idPerfil}}"/>
+                <label for="choice{{forloop.counter}}">{{perfil.nombre}}</label><br>
+              </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br><br>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <br>
+      <button class="btn btn-success" type="submit">Guardar Respuesta</button>
+    </form>
+  </div>
+{% endblock %}

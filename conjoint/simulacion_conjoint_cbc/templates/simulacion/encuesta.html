@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% block title %}Encuesta{% endblock%}
+
+{% block content %}
+
+  {% if questions %}
+        <ul>
+            {% for question in questions %}
+            <!--#<li><a href='/polls/{{ question.id }}'><b>{{ question.question_text}}</b></a></li>-->
+            <li><a href={% url 'simulacion:registrar' simulacion.idSimulacion %}><b>{{ simulacion.preguntaEncuesta}}</b></a></li>
+            {% endfor %}
+        </ul>
+        {%else%}
+        <P>NO hay preguntas</P>
+        {%endif%}
+
+{% endblock %}

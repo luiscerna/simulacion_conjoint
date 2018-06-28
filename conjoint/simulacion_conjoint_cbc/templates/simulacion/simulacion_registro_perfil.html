@@ -1,0 +1,28 @@
+{% extends 'base/base_2.html' %}
+{% block title %}
+  {% if pk %}
+    {{ 'Modificar Perfil' }}
+  {% else %}
+    {{ 'Registrar Perfil' }}
+  {% endif %}
+{% endblock %}
+{% block activate-listasimulacion %}{{ 'active' }}{% endblock %}
+{% block titulo %}
+  {% if pk %}
+    {{ 'Modificar Perfil' }}
+  {% else %}
+    {{ 'Registrar Perfil' }}
+  {% endif %}
+{% endblock %}
+{% block content %}
+    <form method="post"  enctype='multipart/form-data'>
+    	{% csrf_token %}
+    	{{ form.as_p }}
+    	<button class="btn btn-success" type="submit">Guardar</button>
+      {% if pk %}
+    	  <a class="btn btn-primary" href="{% url 'simulacion:simulacion_mostrar' pk %}">Cancelar</a>
+      {% else %}
+        <a class="btn btn-primary" href="{% url 'simulacion:simulacion_mostrar' pk_1 %}">Cancelar</a>
+      {% endif %}
+    </form>
+{% endblock %}

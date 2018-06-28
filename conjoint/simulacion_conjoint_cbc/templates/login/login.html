@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block title %}{{ 'Iniciar Sesión' }}{% endblock %}
+{% block activate-iniciarsesion %}{{ 'active' }}{% endblock %}
+{% block titulo %}{{ 'Iniciar Sesión' }}{% endblock %}
+{% block content %}
+<div class="col-md-7">
+  <form method="post">
+  {% csrf_token %}
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <input class="form-control" type="text" name="username"  placeholder="usuario">
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input class="form-control" type="password" name="password" placeholder="contraseña">
+          </div>
+          <!--<a class="btn btn-primary btn-block" href="#">Acceder</a>-->
+          <input class="btn btn-primary btn-block" type="submit" value="Acceder">
+        </form>
+        <div class="text-center">
+          <br>
+          <a class="d-block small" href="{% url 'password_reset' %}">Olvidé mi contraseña</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base/base_2.html' %}
+{% block title %}
+  {% if pk %}
+    {{ 'Modificar Simulación' }}
+  {% else %}
+    {{ 'Registrar Simulación' }}
+  {% endif %}
+{% endblock %}
+{% block activate-listasimulacion %}
+  {% if pk %}
+    {{ 'active' }}
+  {% endif %}
+{% endblock %}
+{% block activate-registrarsimulacion %}
+  {% if pk %}
+  {% else %}
+    {{ 'active' }}
+  {% endif %}
+{% endblock %}
+{% block titulo %}
+  {% if pk %}
+    {{ 'Modificar Simulación' }}
+  {% else %}
+    {{ 'Registrar Simulación' }}
+  {% endif %}
+{% endblock %}
+{% block content %}
+    <form method="post">
+    	{% csrf_token %}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Nombre de Simulación</label>
+            {{ form.nombre }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Producto</label>
+            {{ form.producto }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Nombre de la Encuesta</label>
+            {{ form.nombreEncuesta }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Pregunta de la Encuesta</label>
+            {{ form.preguntaEncuesta }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="exampleFormControlInput1">Estado</label>
+          {{ form.idSimulacionEstado }}
+        </div>
+      </div>
+      <br>
+    	<button class="btn btn-success" type="submit">Guardar</button>
+      {% if pk %}
+    	  <a class="btn btn-primary" href="{% url 'simulacion:simulacion_mostrar' pk %}">Cancelar</a>
+      {% else %}
+        <a class="btn btn-primary" href="{% url 'simulacion:simulacion_listar' %}">Cancelar</a>
+      {% endif %}
+    </form>
+{% endblock %}
